@@ -20,20 +20,5 @@ public class GameController : MonoBehaviour
         
     }
 
-    void FieldFill()
-    {
-        deck.Shuffle();
-        int count_card = 0;
-        foreach (DOM dom in doms)
-        {
-            foreach (Vector3 pos in dom.Stack_positions)
-            {
-                for (int i = count_card; i < dom.Stack_positions.Count; i++)
-                {
-                    deck.Deck_list[i].transform.position = pos;
-                }
-            }
-        }
-        count_card = 0;
-    }
+
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DOM : MonoBehaviour
 {
     [SerializeField]
-    public List<Vector3> Stack_positions = new List<Vector3>();
+    List<Vector3> Stack_positions = new List<Vector3>();
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +22,15 @@ public class DOM : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void AddCard()
+    {
+            
+    }
+
+    void RemoveCard()
+    {
+
     }
 }
