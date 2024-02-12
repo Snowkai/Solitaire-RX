@@ -9,7 +9,7 @@ public class DOM : MonoBehaviour
     void Start()
     {
         Stack_positions.Add(transform.position);
-        Vector3 adding_pos = new Vector3(0.05f, -0.6f, 0.0f);
+        Vector3 adding_pos = new Vector3(-0.05f, -0.6f, 0.0f);
         for (int i = 0; i < 20; i++)
         {
             Vector3 pos = Stack_positions[i] + adding_pos;
