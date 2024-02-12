@@ -101,3 +101,5 @@ MonoBehaviour:
   hide: {fileID: 21300000, guid: 30f48460c7abe88419e6665e6a8aea85, type: 3}
   Suit: 72
   Rank: 3
+  Color: 67
+  isHide: 0
