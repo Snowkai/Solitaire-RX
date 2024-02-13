@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4889838698679247908}
   - component: {fileID: 6440011304542568736}
   m_Layer: 0
-  m_Name: CardDA
+  m_Name: Card
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a038c0488d95e144c8d32e5d41c6fbfa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 498a8deaff44deb47a9bfa7bbbf2ce42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc9860dc6f7cd24badaf089d5a94e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: {fileID: 21300000, guid: a038c0488d95e144c8d32e5d41c6fbfa, type: 3}
+  active: {fileID: 21300000, guid: 498a8deaff44deb47a9bfa7bbbf2ce42, type: 3}
   hide: {fileID: 21300000, guid: 30f48460c7abe88419e6665e6a8aea85, type: 3}
-  Suit: 68
-  Rank: A
+  Suit: 67
+  Rank: 1
+  Color: 98
+  isHide: 1
