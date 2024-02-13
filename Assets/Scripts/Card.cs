@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
     public Sprite active;
     public Sprite hide;
     public char Suit;
-    public string Rank;
+    public Rank Rank;
     public char Color;
     public bool isHide = true;
     // Start is called before the first frame update
@@ -35,4 +35,21 @@ public class Card : MonoBehaviour
         }
     }
     
+}
+
+public enum Rank
+{
+    Ace = 1,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
+    Jack,
+    Queen,
+    King
 }
