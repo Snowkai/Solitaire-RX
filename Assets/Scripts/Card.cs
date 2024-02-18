@@ -12,7 +12,8 @@ public class Card : MonoBehaviour
     public char Suit;
     public Rank Rank;
     public char Color;
-    public bool isHide = true;
+    public bool isFaceUp = true;
+    public GameObject MyLastDOM;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +28,14 @@ public class Card : MonoBehaviour
 
     public void Flip()
     {
-        if(isHide)
+        if(isFaceUp)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = hide;
+            isFaceUp = false;
         } else
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = active;
+            isFaceUp = true;
         }
     }
     

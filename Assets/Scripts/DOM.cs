@@ -1,20 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 public class DOM : MonoBehaviour
 {
-    private List<Vector3> Stack_positions = new List<Vector3>();
-    List<Card> Cards = new List<Card>();
+    private Vector3[] StackPositions = new Vector3[20]; 
+    public GameObject[] StackCards = new GameObject[20];
     // Start is called before the first frame update
     void Start()
     {
-        Stack_positions.Add(transform.position);
-        Vector3 adding_pos = new Vector3(-0.05f, -0.6f, 0.0f);
-        for (int i = 0; i < 20; i++)
+        StackPositions[0] = gameObject.transform.position;
+        Vector3 adding_pos = new Vector3(0f, -0.6f, -0.001f);
+        for (int i = 1; i < StackPositions.Length; i++)
         {
-            Vector3 pos = Stack_positions[i] + adding_pos;
-            Stack_positions.Add(pos);
+            Vector3 pos = StackPositions[i-1] + adding_pos;
+            StackPositions[i]=pos;
         }
     }
 
@@ -24,33 +27,77 @@ public class DOM : MonoBehaviour
         
     }
 
-    public void AddCard(Card card)
+    public void AddCard(GameObject card, Vector3 last—ardPosition)
     {
-        var last_card_position = card.transform.position;
-        var last_card = Cards[Cards.Count - 1];
-        if(last_card.Color != card.Color)
+        if (!card.GetComponent<Card>().isFaceUp)
         {
-            if(card.Rank+1 == last_card.Rank) 
+            //Using in Razdacha()
+            int indexFreePlace = StackCards.Select((item, i) => new { Item = item, Index = i })
+                 .Where(x => x.Item == null)
+                 .Select(x => x.Index)
+                 .FirstOrDefault();
+            card.transform.position = StackPositions[indexFreePlace];
+            StackCards[indexFreePlace] = card;
+            card.GetComponent<Card>().MyLastDOM = gameObject;
+        } else if (card.GetComponent<Card>().isFaceUp)
+        {
+            //find Index with free(null) position in StackCards and index last card in StackCards
+            int indexFreePlace = StackCards.Select((item, i) => new { Item = item, Index = i })
+                 .Where(x => x.Item == null)
+                 .Select(x => x.Index)
+                 .FirstOrDefault();
+            int indexLastCardOfStackCards = indexFreePlace - 1;
+            if (indexLastCardOfStackCards < 0)
             {
-                Cards.Add(card);
-                card.transform.position = Stack_positions[Cards.Count - 1];
-                last_card.isHide = true;
-                card.isHide = false;
+                indexLastCardOfStackCards = 0;
+                card.transform.position = StackPositions[indexLastCardOfStackCards];
+                StackCards[indexLastCardOfStackCards] = card;
+                card.GetComponent<Card>().MyLastDOM = gameObject;
             }
             else
             {
-                card.transform.position = last_card_position;
-            }           
-        }
-        else
-        {
-            card.transform.position = last_card_position;
+                //Checking on requirements for adding card
+                if (StackCards[indexLastCardOfStackCards].GetComponent<Card>().Color != card.GetComponent<Card>().Color)
+                {
+                    if (StackCards[indexLastCardOfStackCards].GetComponent<Card>().Rank == card.GetComponent<Card>().Rank + 1)
+                    {
+                        //Adding in new DOM
+                        card.transform.position = StackPositions[indexFreePlace];
+                        StackCards[indexFreePlace] = card;
+                        //Remove From old DOM
+                        card.GetComponent<Card>().MyLastDOM = gameObject;
+                        GameObject lastDOM = card.GetComponent<Card>().MyLastDOM;
+                        lastDOM.GetComponent<DOM>().RemoveCard(card);
+                    }
+                    else
+                    {
+                        card.transform.position = last—ardPosition;
+                    }
+                }
+                else
+                {
+                    card.transform.position = last—ardPosition;
+                }
+            }
         }
     }
 
-    public void RemoveCard()
+    public void RemoveCard(GameObject card)
     {
-        Card card = Cards[Cards.Count - 1];
-        Cards.RemoveAt(Cards.Count - 1);
+        int index = Array.IndexOf(StackCards, card);
+        StackCards[index] = null;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<Drag>().isMouseUp)
+        {
+            AddCard(other.gameObject, other.GetComponent<Drag>().LastCardPosition);
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+
     }
 }

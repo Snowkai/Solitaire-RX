@@ -8,7 +8,7 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Shuffle();
     }
 
     public void Shuffle()
