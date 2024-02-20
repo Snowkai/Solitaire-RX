@@ -90,14 +90,11 @@ public class DOM : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<Drag>().isMouseUp)
+        Debug.Log("A 1");
+        if (other.GetComponent<Drag>().isMouseUp)
         {
             AddCard(other.gameObject, other.GetComponent<Drag>().LastCardPosition);
+            Debug.Log("A 2");
         }
-    }
-
-    private void OnTriggerExit(Collider collision)
-    {
-
     }
 }

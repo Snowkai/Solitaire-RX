@@ -26,7 +26,10 @@ public class Drag : MonoBehaviour
         LastCardPosition = transform.position;
         MyLastDom = gameObject.GetComponent<Card>().MyLastDOM;
         // Record the difference between the objects centre, and the clicked point on the camera plane.
-        transform.position += new Vector3(0f,0f,-2f);
+        if(transform.position.z > -1.5f) 
+        {
+            transform.position += new Vector3(0f, 0f, -1f);
+        }
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragging = true;
         isMouseDown = true;
@@ -39,9 +42,5 @@ public class Drag : MonoBehaviour
         dragging = false;
         isMouseDown = false;
         isMouseUp = true;
-        /*if(MyLastDom == gameObject.GetComponent<Card>().MyLastDOM)
-        {
-            transform.position = LastCardPosition;
-        }*/
     }
 }
